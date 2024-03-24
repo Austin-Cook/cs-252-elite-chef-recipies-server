@@ -1,9 +1,9 @@
 from flask import Flask, request
-from query_handler import RestHandler
+from util.query_handler import QueryHandler
 from util.util import *
 
 app = Flask(__name__)
-handler = RestHandler()
+handler = QueryHandler()
 
 @app.route('/recipe', methods=['GET'])
 def get_recpie():

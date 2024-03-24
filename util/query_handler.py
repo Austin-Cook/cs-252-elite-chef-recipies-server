@@ -12,7 +12,7 @@ TAG3 = "tag3"
 DESCRIPTION = "description"
 
 
-class RestHandler:
+class QueryHandler:
     def __init__(self):
         self.db_manager = DBManager()
 
@@ -45,12 +45,12 @@ class RestHandler:
         
         # TODO this should all be done at one place!!! WHERE TO DO THIS
         
-        email: one word, max 100 chars,
-        title: max 100 chars,
-        tag1: one word, max 100 chars,
-        tag2: one word, max 100 chars,
-        tag3: one word, max 100 chars,
-        description: max 5000 chars
+        # email: one word, max 100 chars,
+        # title: max 100 chars,
+        # tag1: one word, max 100 chars,
+        # tag2: one word, max 100 chars,
+        # tag3: one word, max 100 chars,
+        # description: max 5000 chars
 
         
         return self.db_manager.post("request.json")
