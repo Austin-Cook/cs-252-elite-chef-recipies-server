@@ -6,8 +6,8 @@ from settings import QUERY_MAX_LEN, EMAIL_MAX_LEN, TITLE_MAX_LEN, TAG_MAX_LEN, D
 
 
 class QueryHandler:
-    def __init__(self):
-        self.db_manager = DBManager()
+    def __init__(self, db_manager: DBManager):
+        self.db_manager = db_manager
 
     def process_get(self, request: Request):
         if not request.is_json:

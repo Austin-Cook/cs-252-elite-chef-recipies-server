@@ -1,8 +1,11 @@
 from flask import Flask, request
+from data_access.db_manager import DBManager
 from query_handler.query_handler import QueryHandler
 
 app = Flask(__name__)
-handler = QueryHandler()
+db_manager = DBManager()
+handler = QueryHandler(db_manager)
+
 
 @app.route('/recipe', methods=['GET'])
 def get_recpie():

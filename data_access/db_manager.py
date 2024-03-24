@@ -1,5 +1,5 @@
-from service.redis_service import RedisService
-from service.mongodb_service import MongoDBService
+from data_access.service.redis_service import RedisService
+from data_access.service.mongodb_service import MongoDBService
 
 class DBManager():
     def __init__(self):
@@ -15,12 +15,17 @@ class DBManager():
         #   if miss from both: return error message: error_item_not_found(query)
         #   return formatted reponse, [200/400], add in [redis/mongodb] depending on where it came from
         # 
+        
+        
         pass
     
     def post(self, email: str, title: str, description: str, 
              tag1: str = None, tag2: str = None, tag3: str = None):
         # TODO implement
         # return response, [200/400]
+        
+        
+        # TODO when you add an item to Redis, add it under all existing tags as well (0-3 tags) for better lookups
         pass
     
     
