@@ -1,6 +1,5 @@
 from flask import Flask, request
-from util.query_handler import QueryHandler
-from util.util import *
+from query_handler.query_handler import QueryHandler
 
 app = Flask(__name__)
 handler = QueryHandler()

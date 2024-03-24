@@ -1,6 +1,5 @@
 from service.redis_service import RedisService
 from service.mongodb_service import MongoDBService
-from flask import json
 
 class DBManager():
     def __init__(self):
@@ -18,10 +17,19 @@ class DBManager():
         # 
         pass
     
-    def post(self, request_json: json):
+    def post(self, email: str, title: str, description: str, 
+             tag1: str = None, tag2: str = None, tag3: str = None):
         # TODO implement
         # return response, [200/400]
         pass
+    
+    
+        # email: one word, max 100 chars,
+        # title: max 100 chars,
+        # tag1: one word, max 100 chars,
+        # tag2: one word, max 100 chars,
+        # tag3: one word, max 100 chars,
+        # description: max 5000 chars
     
     def delete(self, item: str):
         # TODO implement
