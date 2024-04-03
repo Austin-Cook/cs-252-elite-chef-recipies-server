@@ -1,8 +1,8 @@
 from flask import jsonify
 
-def get_json_error(message:str):
+def get_json_error(message: str):
     return jsonify({
-        "message": "Error: " + str
+        "message": "Error: " + message
     })
 
 def error_not_json():
@@ -15,7 +15,7 @@ def error_field_empty(field: str):
     return get_json_error("Empty field in request: " + field)
 
 def error_field_too_large(field: str, maxSize: int, actualSize: int):
-    return get_json_error("Field too large: " + field + " " + actualSize + "/" + actualSize + " characters")
+    return get_json_error("Field too large: " + field + " " + str(actualSize) + "/" + str(maxSize) + " characters")
 
 def error_wrong_type(field: str):
     return get_json_error("Input parameter should be of type string: " + field)

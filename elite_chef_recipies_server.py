@@ -1,8 +1,10 @@
 from flask import Flask, request
+from flask_cors import CORS
 from data_access.db_manager import DBManager
 from query_handler.query_handler import QueryHandler
 
 app = Flask(__name__)
+CORS(app)
 db_manager = DBManager()
 handler = QueryHandler(db_manager)
 
@@ -13,7 +15,7 @@ def get_recpie():
 
 @app.route('/recipe', methods=['POST'])
 def post_recipe():
-    return handler.process_post()
+    return handler.process_post(request)
 
 @app.route('/recipe', methods=['DELETE'])
 def delete_all_for_user():

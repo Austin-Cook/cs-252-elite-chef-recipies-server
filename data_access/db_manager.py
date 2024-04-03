@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from data_access.service.redis_service import RedisService
 from data_access.service.mongodb_service import MongoDBService
 
@@ -23,7 +25,9 @@ class DBManager():
              tag1: str = None, tag2: str = None, tag3: str = None):
         # TODO implement
         # return response, [200/400]
-        
+        return jsonify({
+            "message": "Worked!"
+        })
         
         # TODO when you add an item to Redis, add it under all existing tags as well (0-3 tags) for better lookups
         pass

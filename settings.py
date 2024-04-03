@@ -1,7 +1,7 @@
 import os
 import logging
 
-LOG_LEVEL = logging.INFO
+LOG_LEVEL = logging.DEBUG
 
 # GENERAL
 QUERY_MAX_LEN = 100

@@ -2,11 +2,14 @@ from flask import Request
 from data_access.db_manager import DBManager
 from util.util import strip_whitespace, char_count
 from util.errors import error_not_json, error_field_missing, error_field_empty, error_field_too_large, error_wrong_type
+from util.util import get_logger
 from settings import QUERY_MAX_LEN, EMAIL_MAX_LEN, TITLE_MAX_LEN, TAG_MAX_LEN, DESCRIPTION_MAX_LEN, QUERY, EMAIL, TITLE, TAG1, TAG2, TAG3, DESCRIPTION
+import json
 
 
 class QueryHandler:
     def __init__(self, db_manager: DBManager):
+        self.logger = get_logger(self.__class__.__name__)
         self.db_manager = db_manager
 
     def process_get(self, request: Request):
@@ -27,71 +30,72 @@ class QueryHandler:
         
 
     def process_post(self, request: Request):
+        self.logger.debug("POST request: " + json.dumps(request.json))
         if not request.is_json:
             return error_not_json(), 400
-        json = request.json
-        if not EMAIL in json:
+        json_data = request.json
+        if not EMAIL in json_data:
             return error_field_missing(EMAIL), 400
-        if not TITLE in json:
+        if not TITLE in json_data:
             return error_field_missing(TITLE), 400
-        if not DESCRIPTION in json:
+        if not DESCRIPTION in json_data:
             return error_field_missing(DESCRIPTION), 400
-        if not isinstance(json[EMAIL], str):
+        if not isinstance(json_data[EMAIL], str):
             return error_wrong_type(EMAIL), 400
-        if not isinstance(json[TITLE], str):
+        if not isinstance(json_data[TITLE], str):
             return error_wrong_type(TITLE), 400
-        if not isinstance(json[DESCRIPTION], str):
+        if not isinstance(json_data[DESCRIPTION], str):
             return error_wrong_type(DESCRIPTION), 400
-        email = strip_whitespace(json[EMAIL])
-        title = strip_whitespace(json[TITLE])
-        description = strip_whitespace(json[DESCRIPTION])
+        email = strip_whitespace(json_data[EMAIL])
+        title = strip_whitespace(json_data[TITLE])
+        description = strip_whitespace(json_data[DESCRIPTION])
         email_len = char_count(email)
         title_len = char_count(title)
         description_len = char_count(description)
         if (email_len == 0):
-            return error_field_empty(EMAIL)
+            return error_field_empty(EMAIL), 400
         if (title_len == 0):
-            return error_field_empty(TITLE)
+            return error_field_empty(TITLE), 400
         if (description_len == 0):
-            return error_field_empty(DESCRIPTION)
+            return error_field_empty(DESCRIPTION), 400
         if (email_len > EMAIL_MAX_LEN):
-            return error_field_too_large(EMAIL, EMAIL_MAX_LEN, email_len)
+            return error_field_too_large(EMAIL, EMAIL_MAX_LEN, email_len), 400
         if (title_len > TITLE_MAX_LEN):
-            return error_field_too_large(TITLE, TITLE_MAX_LEN, title_len)
+            return error_field_too_large(TITLE, TITLE_MAX_LEN, title_len), 400
         if (description_len > DESCRIPTION_MAX_LEN):
-            return error_field_too_large(DESCRIPTION, DESCRIPTION_MAX_LEN, description_len)
+            return error_field_too_large(DESCRIPTION, DESCRIPTION_MAX_LEN, description_len), 400
         # tags of len 0 are not used
         tag1 = None
         tag2 = None
         tag3 = None
-        tag = json.get(TAG1)
+        tag = json_data.get(TAG1)
         if tag is not None:
             if not isinstance(tag, str):
                 return error_wrong_type(TAG1), 400
             tag = strip_whitespace(tag)
             len = char_count(tag)
             if len > TAG_MAX_LEN:
-                return error_field_too_large(TAG1, TAG_MAX_LEN, len)
+                return error_field_too_large(TAG1, TAG_MAX_LEN, len), 400
             if len > 0:
                 tag1 = tag
-        tag = json.get(TAG2)
+        tag = json_data.get(TAG2)
         if tag is not None:
             if not isinstance(tag, str):
                 return error_wrong_type(TAG2), 400
             tag = strip_whitespace(tag)
             len = char_count(tag)
             if len > TAG_MAX_LEN:
-                return error_field_too_large(TAG2, TAG_MAX_LEN, len)
+                return error_field_too_large(TAG2, TAG_MAX_LEN, len), 400
             if len > 0:
                 tag2 = tag
-        tag = json.get(TAG3)
+        tag = json_data.get(TAG3)
         if tag is not None:
             if not isinstance(tag, str):
                 return error_wrong_type(TAG3), 400
             tag = strip_whitespace(tag)
             len = char_count(tag)
             if len > TAG_MAX_LEN:
-                return error_field_too_large(TAG3, TAG_MAX_LEN, len)
+                return error_field_too_large(TAG3, TAG_MAX_LEN, len), 400
             if len > 0:
                 tag3 = tag
         

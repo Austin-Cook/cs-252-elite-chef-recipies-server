@@ -13,9 +13,9 @@ def char_count(string: str):
     return len(string)
 
 def strip_whitespace(string: str):
-    return string.strip
+    return string.strip()
 
-def get_logger(logger_name, log_level=logging.INFO):
+def get_logger(logger_name, log_level=LOG_LEVEL):
     logger = logging.getLogger(logger_name)
     logger.setLevel(log_level)
     console_handler = logging.StreamHandler()

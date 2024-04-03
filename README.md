@@ -16,7 +16,8 @@ Retrieve a recipe from the database
 - Success Response
 ```
 {
-    retrieved_from: [redis/mongodb]
+    message: ...,
+    retrieved_from: [redis/mongodb],
     email: ...,
     title: ...,
     tag1: ...,
@@ -37,6 +38,7 @@ Post a new recipe to the database
 - Request
 ```
 {
+    message: ...,
     email: one word, max 100 chars,
     title: max 100 chars,
     tag1 (optional): one word, max 100 chars,
@@ -47,7 +49,9 @@ Post a new recipe to the database
 ```
 - Success Response
 ```
-'', 200
+{
+    message: ...
+}, 200
 ```
 - Error Response
 ```
@@ -66,7 +70,9 @@ Delete all recipes in the database created by the user
 ```
 - Success Response
 ```
-'', 200
+{
+    message: ...
+}, 200
 ```
 - Error Response
 ```
