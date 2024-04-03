@@ -5,13 +5,12 @@ Run with `python3 elite_chef_recipies_server.py`
 
 ## Endpoints
 
-### GET /recipe
+### GET /recipe?query=QUERY
 Retrieve a recipe from the database  
+query: one word, max 100 characters
 - Request
 ```
-{
-    query: one word, max 100 characters
-}
+Empty
 ```
 - Success Response
 ```
@@ -20,9 +19,9 @@ Retrieve a recipe from the database
     retrieved_from: [redis/mongodb],
     email: ...,
     title: ...,
-    tag1: ...,
-    tag2: ...,
-    tag3: ...,
+    tag1: ..., // Optional
+    tag2: ..., // Optional
+    tag3: ..., // Optional
     description: ...
 }, 200
 ```
@@ -57,16 +56,15 @@ Post a new recipe to the database
 ```
 {
     message: ...
-}, 400
+}, 500
 ```
 
-### DELETE /recipe
+### DELETE /recipe?email=EMAIL
 Delete all recipes in the database created by the user  
+email: one word, max 100 chars
 - Request
 ```
-{
-    email: one word, max 100 chars
-}
+Empty
 ```
 - Success Response
 ```
@@ -103,3 +101,6 @@ Delete all recipes in the database created by the user
 
 ### Server
 - Python Flask Rest API Server
+
+### Things to Work Out
+- Redis items are set to expire on a timer. However, when we delete a user's recipies form MongoDB, we don't clear the cache so recipies will still temporarily show up in a search, even after deletion.

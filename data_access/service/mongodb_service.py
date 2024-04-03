@@ -15,8 +15,8 @@ class MongoDBService:
         self.recipies = self.db.get_collection(MONGODB_RECIPE_COLLECTION)
 
     def insert(self, email: str, title: str, description: str, 
-             tag1: str = None, tag2: str = None, tag3: str = None):
-        return self.recipies.insert({
+             tag1: str = None, tag2: str = None, tag3: str = None) -> bool:
+        insert_result =  self.recipies.insert_one({
             EMAIL: email,
             TITLE: title,
             DESCRIPTION: description,
@@ -24,17 +24,24 @@ class MongoDBService:
             TAG2: tag2,
             TAG3: tag3
         })
+        if (insert_result.inserted_id):
+            return True
+        return False
     
-    def find_one_by_title(self, title: str):
+    def find_one(self, item: str):
         filter = {
-            TITLE: title
+            "$or": [
+                {TITLE: item},
+                {TAG1: item},
+                {TAG2: item},
+                {TAG3: item}
+            ]
         }
-        projection = {
-            # TODO MAKE SURE THIS DOESN'T EXCLUDE THE OTHER FIELDS
-            "_id": 0
-        }
-        return self.recipies.find().limit(1)[0] # TODO MAKE SURE I ACCESS THE ARRAY PROPERLY
+        return self.recipies.find_one(filter=filter, projection={'_id': 0})
         
-    def delete_all_by_email(self, email: str):
-        return self.recipies.delete_many({ EMAIL: email })
+    def delete_all_by_email(self, email: str) -> int:
+        '''
+        Returns the number of items deleted
+        '''
+        return self.recipies.delete_many({ EMAIL: email }).deleted_count
     

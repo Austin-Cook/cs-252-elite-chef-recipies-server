@@ -19,7 +19,7 @@ def post_recipe():
 
 @app.route('/recipe', methods=['DELETE'])
 def delete_all_for_user():
-    return handler.process_delete()
+    return handler.process_delete(request)
 
 
 if __name__ == "__main__":

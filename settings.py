@@ -9,6 +9,10 @@ EMAIL_MAX_LEN = 100
 TITLE_MAX_LEN = 100
 TAG_MAX_LEN = 100
 DESCRIPTION_MAX_LEN = 5000
+RETRIEVED_FROM = "retrieved_from"
+MONGODB_ATLAS = "mongodb_atlas"
+REDIS_CLOUD = "redis_cloud"
+MESSAGE = "message"
 QUERY = "query"
 EMAIL = "email"
 TITLE = "title"
@@ -26,6 +30,7 @@ def retrieve_redis_password() -> str:
     if (redis_password is None):
         raise KeyError("Unable to locate REDIS_CLOUD_PASSWORD in the environment. Add `export REDIS_CLOUD_PASSWORD={PASSWORD}` to the bottom of `~/.bashrc`")
     return redis_password
+ITEM_TIMEOUT = 300 # 5 minutes
 
 # MONGODB
 MONGODB_USERNAME = "cluster_0_user"
