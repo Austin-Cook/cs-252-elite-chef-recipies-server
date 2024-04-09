@@ -1,12 +1,10 @@
 from flask import Flask, request
 from flask_cors import CORS
-from data_access.db_manager import DBManager
-from query_handler.query_handler import QueryHandler
+from app.query_handler import QueryHandler
 
 app = Flask(__name__)
 CORS(app)
-db_manager = DBManager()
-handler = QueryHandler(db_manager)
+handler = QueryHandler()
 
 
 @app.route('/recipe', methods=['GET'])

@@ -1,10 +1,10 @@
-from util.util import get_logger
+from app.util.util import get_logger
 import redis
 import json
 from redis import exceptions
 from redis.commands.json.path import Path
 
-from settings import retrieve_redis_password, REDIS_HOST, REDIS_PORT, REDIS_DB, ITEM_TIMEOUT
+from app.settings import retrieve_redis_password, REDIS_HOST, REDIS_PORT, REDIS_DB, ITEM_TIMEOUT
 
 
 class RedisService:
@@ -22,7 +22,7 @@ class RedisService:
         Returns the value of item from the cache | None (if DNE)
         """
         result = self.conn.get(item)
-        if (result): # FIXME may not need this!
+        if (result):
             result = json.loads(result.decode('utf-8'))
         return result
     

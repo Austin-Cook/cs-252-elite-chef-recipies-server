@@ -1,6 +1,6 @@
 import logging
 
-from settings import LOG_LEVEL
+from app.settings import LOG_LEVEL
 
 
 def is_one_word(string: str):

@@ -4,14 +4,15 @@ import logging
 LOG_LEVEL = logging.DEBUG
 
 # GENERAL
+
 QUERY_MAX_LEN = 100
 EMAIL_MAX_LEN = 100
 TITLE_MAX_LEN = 100
 TAG_MAX_LEN = 100
 DESCRIPTION_MAX_LEN = 5000
 RETRIEVED_FROM = "retrieved_from"
-MONGODB_ATLAS = "mongodb_atlas"
-REDIS_CLOUD = "redis_cloud"
+MONGODB_ATLAS = "MongoDB Atlas"
+REDIS_CLOUD = "Redis Cloud"
 MESSAGE = "message"
 QUERY = "query"
 EMAIL = "email"
@@ -22,6 +23,7 @@ TAG3 = "tag3"
 DESCRIPTION = "description"
 
 # REDIS
+
 REDIS_HOST = "redis-19367.c299.asia-northeast1-1.gce.cloud.redislabs.com"
 REDIS_PORT = 19367
 REDIS_DB = 0
@@ -30,9 +32,10 @@ def retrieve_redis_password() -> str:
     if (redis_password is None):
         raise KeyError("Unable to locate REDIS_CLOUD_PASSWORD in the environment. Add `export REDIS_CLOUD_PASSWORD={PASSWORD}` to the bottom of `~/.bashrc`")
     return redis_password
-ITEM_TIMEOUT = 300 # 5 minutes
+ITEM_TIMEOUT = 86400 # 1 day
 
 # MONGODB
+
 MONGODB_USERNAME = "cluster_0_user"
 MONGODB_CONN_STRING = "mongodb+srv://{}:{}@cluster0.8tpshhm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 def retrieve_mongodb_uri() -> str:

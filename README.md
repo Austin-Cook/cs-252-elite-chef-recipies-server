@@ -87,11 +87,13 @@ Empty
         - If in MongoDB, cache result in Redis
 
 ### MongoDB
-
+- Primary database to store recipies
 
 ### Redis
 - Uses Cache-Aside Strategy
-- Remove items by LRU (least recently used)
+- Item Removal:
+    - LRU (least recently used)
+    - Timout (currently set to 1 day)
 - Cache the recipe:
     - recipe_title -> recipe_data
     - tag# -> recipe_data (for all tags)
@@ -103,4 +105,4 @@ Empty
 - Python Flask Rest API Server
 
 ### Things to Work Out
-- Redis items are set to expire on a timer. However, when we delete a user's recipies form MongoDB, we don't clear the cache so recipies will still temporarily show up in a search, even after deletion.
+- Because Redis items are set to expire on a timer, deleting a user's posts from MongoDB won't be reflected in query results until the cooresponding Redis entry times out or is pushed out.

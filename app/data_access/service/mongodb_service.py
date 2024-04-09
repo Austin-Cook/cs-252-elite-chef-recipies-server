@@ -1,8 +1,8 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-from util.util import get_logger
-from settings import retrieve_mongodb_uri, MONGODB_DB_NAME, MONGODB_RECIPE_COLLECTION, EMAIL, TITLE, DESCRIPTION, TAG1, TAG2, TAG3
+from app.util.util import get_logger
+from app.settings import retrieve_mongodb_uri, MONGODB_DB_NAME, MONGODB_RECIPE_COLLECTION, EMAIL, TITLE, DESCRIPTION, TAG1, TAG2, TAG3
 
 
 class MongoDBService:
